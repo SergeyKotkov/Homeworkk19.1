@@ -8,5 +8,6 @@ urlpatterns = [
     path('contacts/', views.contacts, name='contacts'),
     path('category/', views.category, name='category'),
     path('catalog/', views.catalog, name='catalog'),
+    path('catalog/<int:pk>/', views.Category_detail, name='Category_detail')
 ]
 
