@@ -167,9 +167,10 @@
                 </div>
             </div>
         </section>
-        {% for category in categories %}
-        {% include 'Category_list.html' %}
-        {% endfor %}
+
+        {% block content %}
+        {% endblock %}
+
     </main>
 
     <footer class="text-body-secondary py-5">
