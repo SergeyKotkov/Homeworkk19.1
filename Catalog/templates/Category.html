@@ -161,8 +161,7 @@
                     <h1 class="fw-light">Витрина товаров</h1>
                     <p class="lead text-body-secondary">Вы можете выбрать товары и купить</p>
                     <p>
-                        <a href="#" class="btn btn-primary my-2">Main call to action</a>
-                        <a href="#" class="btn btn-secondary my-2">Secondary action</a>
+                        <a href="{% url 'Catalog:blog_list' %}" class="btn btn-primary my-2">Создать товар</a>
                     </p>
                 </div>
             </div>
@@ -173,15 +172,6 @@
 
     </main>
 
-    <footer class="text-body-secondary py-5">
-        <div class="container">
-            <p class="float-end mb-1">
-                <a href="#">Back to top</a>
-            </p>
-            <p class="mb-1">Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
-            <p class="mb-0">New to Bootstrap? <a href="/">Visit the homepage</a> or read our <a href="/docs/5.3/getting-started/introduction/">getting started guide</a>.</p>
-        </div>
-    </footer>
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
 </body>
 </html>
