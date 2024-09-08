@@ -1,0 +1,29 @@
+{% extends 'Category.html' %}
+{% load my_tags %}
+{% block content %}
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+    {% for blog in object_list %}
+    <div class="col">
+        {% if blog.is_published %}
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <img src="/media/{{ blog.preview }}"/>
+                <h5 class="card-title">{{ blog.title }} ({{ blog.slug }})</h5>
+                <p class="card-text">{{ blog.body|truncatechars:100 }}</p>
+                <div class="d-flex justify-content-between align-items-center">
+                        <a class="btn btn-primary" href="{% url 'Catalog:blog_detail' blog.pk %}" role="button">Посмотреть</a>
+                        {% if blog.is_published %}
+                        <a class="btn btn-warning" href="{% url 'Catalog:toggle_activity' blog.pk %}" role="button">Деактивировать</a>
+                        {% else %}
+                        <a class="btn btn-primary" href="{% url 'Catalog:toggle_activity' blog.pk %}" role="button">Активировать</a>
+                        {% endif %}
+                        <a class="btn btn-danger" href="{% url 'Catalog:delete' blog.pk %}" role="button">Удалить</a>
+                        <small class="text-body-secondary">Количество просмотров {{ blog.views_count }}</small>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
