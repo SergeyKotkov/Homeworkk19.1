@@ -3,7 +3,7 @@ from django.conf.urls.static import static
 from django.urls import path
 from . import views
 from .views import ProductListView, CategoryDetailViews, HomeTemplateView, contactsTemplateView, BlogListView, \
-    BlogDetailView, BlogCreateView, BlogUpdateView, tuggle_Blog, BlogDeleteView
+    BlogDetailView, BlogCreateView, BlogUpdateView, BlogDeleteView, tuggle_Blog
 
 app_name = 'Catalog'
 
