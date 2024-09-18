@@ -16,6 +16,7 @@ class Category(models.Model):
 
 class Product(models.Model):
     name = models.CharField(max_length=100)
+    slug = models.CharField(max_length=150, verbose_name='slug', **NULLABLE)
     description = models.TextField(blank=True, null=True)
     image = models.ImageField(upload_to='products/', blank=True, null=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
@@ -23,7 +24,8 @@ class Product(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     manufactured_at = models.DateTimeField(blank=True, null=True)
-
+    is_published = models.BooleanField(default=True, verbose_name='опубликовано')
+    views_count = models.IntegerField(default=0, verbose_name='количество просмотров')
     class Meta:
         verbose_name = 'Product'
         verbose_name_plural = 'Products'

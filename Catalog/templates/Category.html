@@ -1,4 +1,4 @@
-{% load static%}}
+{% load static%}
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="auto">
 <head>
@@ -175,13 +175,15 @@
     <section class="py-5 text-center container">
         <div class="row py-lg-5">
             <div class="col-lg-6 col-md-8 mx-auto">
-                <h1 class="fw-light">Витрина товаров</h1>
-                <p class="lead text-body-secondary">Вы можете выбрать товары и купить</p>
+                <h1 class="fw-light">Витрина товаров и блогов</h1>
+                <p class="lead text-body-secondary">Вы можете выбрать товары и купить, а так же посмостреть блоги или написать их</p>
                 <p>
                     <a href="{% url 'Catalog:blog_form' %}" class="btn btn-primary my-2">Создать блог</a>
-                </p>
-                <p>
                     <a href="{% url 'Catalog:blog_list' %}" class="btn btn-primary my-2">Посмотреть блоги</a>
+                <p>
+                    <a href="{% url 'Catalog:product_form' %}" class="btn btn-primary my-2">Создать товар</a>
+                    <a href="{% url 'Catalog:product_list' %}" class="btn btn-primary my-2">Посмотреть товары</a>
+                </p>
                 </p>
             </div>
         </div>

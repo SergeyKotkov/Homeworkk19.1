@@ -7,16 +7,15 @@
                 <div class="body">
                     <form method="post">
                         {% csrf_token %}
-                        <p>Хотите удалить материал? "{{ blog.title }}"</p>
+                        <p>Хотите удалить материал? "{{ product.name }}"</p>
                         <button type="submit" role="button" tabindex="-1" class="btn btn-danger">
                             Удалить
                         </button>
-                        <a href="{% url 'Catalog:blog_list' %}" class="btn btn-warning">АТМЕНА</a>
+                        <a href="{% url 'Catalog:product_list' %}" class="btn btn-warning">АТМЕНА</a>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 {% endblock %}

@@ -2,7 +2,7 @@
 {% load my_tags %}
 {% block content %}
 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-    {% for blog in object_list %}
+    {% for blog in blog_list %}
     <div class="col">
         {% if blog.is_published %}
         <div class="card shadow-sm">
@@ -17,7 +17,7 @@
                         {% else %}
                         <a class="btn btn-primary" href="{% url 'Catalog:toggle_activity' blog.pk %}" role="button">Активировать</a>
                         {% endif %}
-                        <a class="btn btn-danger" href="{% url 'Catalog:delete' blog.pk %}" role="button">Удалить</a>
+                        <a class="btn btn-danger" href="{% url 'Catalog:blog_delete' blog.pk %}" role="button">Удалить</a>
                         <small class="text-body-secondary">Количество просмотров {{ blog.views_count }}</small>
                 </div>
             </div>

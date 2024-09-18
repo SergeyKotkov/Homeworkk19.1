@@ -32,6 +32,66 @@ class CategoryDetailViews(DetailView):
 class ProductListView(ListView):
     model = Product
 
+    def get_queryset(self, *args, **kwargs):
+        queryset = super().get_queryset(*args, **kwargs)
+        queryset = queryset.filter(is_published=True)
+        return queryset
+
+
+class ProductDetailView(DetailView):
+    model = Product
+    template_name = 'Catalog/product_detail.html'
+    context_object_name = 'product'
+
+    def get_object(self, queryset=None):
+        self.object = super().get_object(queryset)
+        self.object.views_count += 1
+        self.object.save()
+        return self.object
+
+class ProductCreateView(CreateView):
+    model = Product
+    fields = ('id', 'name', 'price', 'category', 'image', 'description')
+    success_url = reverse_lazy('Catalog:product_list')
+
+    def form_valid(self, form):
+        if form.is_valid():
+            new_mat = form.save()
+            new_mat.slug = slugify(new_mat.name)
+            new_mat.save()
+
+        return super().form_valid(form)
+
+class ProductUpdateView(UpdateView):
+    model = Product
+    fields = ('id', 'name', 'price', 'category', 'image', 'description')
+
+    def form_valid(self, form):
+        if form.is_valid():
+            new_mat = form.save()
+            new_mat.slug = slugify(new_mat.name)
+            new_mat.save()
+
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('Catalog:product_detail', args=[self.kwargs.get('pk')])
+
+class ProductDeleteView(DeleteView):
+    model = Product
+    success_url = reverse_lazy('Catalog:product_list')
+
+
+def tuggle_Product(reqest, pk):
+    product_name = get_object_or_404(Product, pk=pk)
+    if product_name.is_published:
+        product_name.is_published = False
+    else:
+        product_name.is_published = True
+
+    product_name.save()
+
+    return redirect(reverse('Catalog:product_list'))
 
 class HomeTemplateView(TemplateView):
     template_name = 'home.html'
