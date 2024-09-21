@@ -1,10 +1,10 @@
 {% extends 'Category.html' %}
 {% block content %}
 <div class="container">
-    <div class="col-6">
-        <div class="card">
-            <form class="row" method="post" enctype="multipart/form-data">
-
+    <form class="row" method="post" enctype="multipart/form-data">
+        <div class="col-6">
+            <div class="card">
+                <p class="card-text">Изменение продукта</p>
                 <div class="card-body">
                     {% csrf_token %}
                     {{ form.as_p }}
@@ -18,8 +18,18 @@
                     <p></p>
                     {% endif %}
                 </button>
+            </div>
         </div>
-        </form>
-    </div>
+        <div class="col-6">
+            <div class="card">
+                <div class="card-body">
+                    {{ formset.management_form }}
+                    {% for form in formset.forms %}
+                    {{ form.as_p }}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </form>
 </div>
 {% endblock %}

@@ -47,3 +47,17 @@ class Blog(models.Model):
     class Meta:
         verbose_name = 'блог'
         verbose_name_plural = 'блоги'
+
+class Version(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    version_number = models.CharField(max_length=50)
+    version_name = models.CharField(max_length=255)
+    is_active = models.BooleanField(default=False)
+
+    class Meta:
+        verbose_name = 'Version'
+        verbose_name_plural = 'Versions'
+        ordering = ['version_name']
+
+    def __str__(self):
+        return self.version_number
