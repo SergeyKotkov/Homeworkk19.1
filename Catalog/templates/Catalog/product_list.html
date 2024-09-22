@@ -10,6 +10,11 @@
                 <img src="/media/{{ product.image }}"/>
                 <h5 class="card-title">{{ product.name }} ({{ product.slug }})</h5>
                 <p class="card-text">{{ product.description|truncatechars:100 }}</p>
+                {% for item in product.version.all %}
+                {% if item.is_active %}
+                {{ item }}
+                {% endif %}
+                {% endfor %}
                 <div class="d-flex justify-content-between align-items-center">
                         <a class="btn btn-primary" href="{% url 'Catalog:product_detail' product.pk %}" role="button">Посмотреть</a>
                         {% if product.is_published %}

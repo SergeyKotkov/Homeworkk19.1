@@ -49,7 +49,7 @@ class Blog(models.Model):
         verbose_name_plural = 'блоги'
 
 class Version(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='version')
     version_number = models.CharField(max_length=50)
     version_name = models.CharField(max_length=255)
     is_active = models.BooleanField(default=False)
@@ -60,4 +60,4 @@ class Version(models.Model):
         ordering = ['version_name']
 
     def __str__(self):
-        return self.version_number
+        return f'{self.version_number} {self.version_name}'
