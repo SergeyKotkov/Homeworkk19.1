@@ -9,9 +9,11 @@
                 <h4>Навигация</h4>
                 <ul class="list-unstyled">
                     <li><a href="{% url 'Catalog:home' %}" class="text-white" aria-label="Главная страница">Главная страница</a></li>
-                    <li><a href="#" class="text-white" aria-label="Вход">Вход</a></li>
-                    <li><a href="#" class="text-white" aria-label="Регистрация">Регистрация</a></li>
-                    <li><a href="#" class="text-white" aria-label="Выход">Выход</a></li>
+                    {% if user.is_authenticated%}
+                    <li><a href="{% url 'users:logout' %}" class="text-white" aria-label="Главная страница">Выход</a></li>
+                    {% else %}
+                    <li><a href="{% url 'users:login' %}" class="text-white" aria-label="Главная страница">Вход</a></li>
+                    {% endif %}
                 </ul>
             </div>
         </div>
