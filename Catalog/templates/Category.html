@@ -176,13 +176,16 @@
         <div class="row py-lg-5">
             <div class="col-lg-6 col-md-8 mx-auto">
                 <h1 class="fw-light">Витрина товаров и блогов</h1>
-                <p class="lead text-body-secondary">Вы можете выбрать товары и купить, а так же посмостреть блоги или написать их</p>
+                <p class="lead text-body-secondary">Вы можете выбрать товары и купить, а так же посмостреть блоги или
+                    написать их</p>
                 <p>
+                    {% if user.is_authenticated %}
                     <a href="{% url 'Catalog:blog_form' %}" class="btn btn-primary my-2">Создать блог</a>
                     <a href="{% url 'Catalog:blog_list' %}" class="btn btn-primary my-2">Посмотреть блоги</a>
                 <p>
                     <a href="{% url 'Catalog:product_form' %}" class="btn btn-primary my-2">Создать товар</a>
                     <a href="{% url 'Catalog:product_list' %}" class="btn btn-primary my-2">Посмотреть товары</a>
+                    {% endif%}
                 </p>
                 </p>
             </div>

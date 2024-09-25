@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.forms import inlineformset_factory
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
@@ -31,7 +32,7 @@ class CategoryDetailViews(DetailView):
     model = Product
 
 
-class ProductListView(ListView):
+class ProductListView(ListView, LoginRequiredMixin):
     model = Product
 
     def get_queryset(self, *args, **kwargs):
@@ -40,7 +41,7 @@ class ProductListView(ListView):
         return queryset
 
 
-class ProductDetailView(DetailView):
+class ProductDetailView(DetailView, LoginRequiredMixin):
     model = Product
     template_name = 'Catalog/product_detail.html'
     context_object_name = 'product'
@@ -51,7 +52,7 @@ class ProductDetailView(DetailView):
         self.object.save()
         return self.object
 
-class ProductCreateView(CreateView):
+class ProductCreateView(CreateView, LoginRequiredMixin):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('Catalog:product_list')
@@ -64,7 +65,7 @@ class ProductCreateView(CreateView):
 
         return super().form_valid(form)
 
-class ProductUpdateView(UpdateView):
+class ProductUpdateView(UpdateView, LoginRequiredMixin):
     model = Product
     form_class = ProductForm
 
@@ -99,7 +100,7 @@ class ProductUpdateView(UpdateView):
     def get_success_url(self):
         return reverse('Catalog:product_detail', args=[self.kwargs.get('pk')])
 
-class ProductDeleteView(DeleteView):
+class ProductDeleteView(DeleteView, LoginRequiredMixin):
     model = Product
     success_url = reverse_lazy('Catalog:product_list')
 
@@ -123,7 +124,7 @@ class contactsTemplateView(TemplateView):
     template_name = 'contacts.html'
 
 
-class BlogListView(ListView):
+class BlogListView(ListView, LoginRequiredMixin):
     model = Blog
 
     def get_queryset(self, *args, **kwargs):
@@ -132,7 +133,7 @@ class BlogListView(ListView):
         return queryset
 
 
-class BlogDetailView(DetailView):
+class BlogDetailView(DetailView, LoginRequiredMixin):
     model = Blog
     template_name = 'Catalog/blog_detail.html'
     context_object_name = 'blog'
@@ -144,7 +145,7 @@ class BlogDetailView(DetailView):
         return self.object
 
 
-class BlogCreateView(CreateView):
+class BlogCreateView(CreateView, LoginRequiredMixin):
     model = Blog
     fields = ("title", "slug", "body", "preview", "created_at", "is_published")
     success_url = reverse_lazy('Catalog:blog_list')
@@ -158,7 +159,7 @@ class BlogCreateView(CreateView):
         return super().form_valid(form)
 
 
-class BlogUpdateView(UpdateView):
+class BlogUpdateView(UpdateView, LoginRequiredMixin):
     model = Blog
     fields = ("title", "slug", "body", "preview", "created_at", "is_published")
 
@@ -175,7 +176,7 @@ class BlogUpdateView(UpdateView):
         return reverse('Catalog:blog_detail', args=[self.kwargs.get('pk')])
 
 
-class BlogDeleteView(DeleteView):
+class BlogDeleteView(DeleteView, LoginRequiredMixin):
     model = Blog
     success_url = reverse_lazy('Catalog:blog_list')
 

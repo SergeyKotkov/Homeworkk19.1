@@ -13,6 +13,7 @@
                     <li><a href="{% url 'users:logout' %}" class="text-white" aria-label="Главная страница">Выход</a></li>
                     {% else %}
                     <li><a href="{% url 'users:login' %}" class="text-white" aria-label="Главная страница">Вход</a></li>
+                    <li><a href="{% url 'users:register' %}" class="text-white" aria-label="Главная страница">Регистрация</a></li>
                     {% endif %}
                 </ul>
             </div>
