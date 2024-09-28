@@ -6,6 +6,7 @@
         <div class="card shadow-sm">
             <img src="/media/{{ product.image }}"/>
             <h5 class="card-title">{{ product.name }}</h5>
+            <h5 class="card-title">{{ product.owner }}</h5>
             <div class="card-body">
                 <h5 class="card-title">{{ product.description }}</h5>
                 <p class="card-text">{{ product.price }}</p>
@@ -13,7 +14,9 @@
                     <div class="btn-group">
                         <a class="btn btn-primary" href="{% url 'Catalog:product_list' %}" role="button">Назад</a>
                     </div>
-                        <a class="btn btn-primary" href="{% url 'Catalog:Product_update' product.pk %}" role="button">Редактировать</a>
+                    {% if perms.Catalog.can_edit_is_published and perms.Catalog.can_edit_description and perms.Catalog.can_edit_category or user == product.owner %}
+                    <a class="btn btn-primary" href="{% url 'Catalog:Product_update' product.pk %}" role="button">Редактировать</a>
+                    {% endif %}
                     <div>
                         <a class="btn btn-primary" href="#" role="button">Купить</a>
                     </div>
@@ -22,6 +25,5 @@
             </div>
         </div>
     </div>
-</div>
 </div>
 {% endblock %}

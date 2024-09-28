@@ -13,11 +13,18 @@ class StyleFormMixin:
             else:
                 field.widget.attrs['class'] = 'form-control'
 
+class ProductModeratorForm(StyleFormMixin, ModelForm):
+    class Meta:
+        model = Product
+        fields = ("is_published", "description", "category")
+
 
 class ProductForm(StyleFormMixin, ModelForm):
     class Meta:
         model = Product
         exclude = ("views_count", "manufactured_at")
+
+
 
     def clean_name(self):
         name = self.cleaned_data.get('name')
