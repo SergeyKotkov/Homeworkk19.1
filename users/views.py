@@ -11,6 +11,7 @@ from users.forms import UserRegisterForm, UserLoginForm, UserProfileForm
 from users.models import User
 from config.settings import EMAIL_HOST_USER
 
+
 class UserCreateView(CreateView):
     model = User
     form_class = UserRegisterForm
