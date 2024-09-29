@@ -1,14 +1,12 @@
 import secrets
 import string
 import random
-
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.views import PasswordResetView, LoginView
 from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, UpdateView
-
 from users.forms import UserRegisterForm, UserLoginForm, UserProfileForm
 from users.models import User
 from config.settings import EMAIL_HOST_USER
@@ -77,5 +75,3 @@ class ProfileView(UpdateView):
 
     def get_object(self, queryset=None):
         return self.request.user
-
-

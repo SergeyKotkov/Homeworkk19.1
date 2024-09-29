@@ -2,6 +2,7 @@ import json
 from django.core.management.base import BaseCommand
 from Catalog.models import Category, Product
 
+
 class Command(BaseCommand):
 
     @staticmethod

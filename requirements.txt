@@ -1,6 +1,8 @@
 Django==4.2.2
 psycopg2-binary
-Pillow
-ipython
-poetry
-pytils
+Pillow==10.4.0
+ipython==8.27.0
+poetry==1.8.3
+pytils==0.4.1
+redis==5.1.0
+python-dotenv==1.0.1

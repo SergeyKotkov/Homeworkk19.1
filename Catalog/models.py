@@ -4,6 +4,7 @@ from users.models import User
 
 NULLABLE = {'blank': True, 'null': True}
 
+
 class Category(models.Model):
     objects = None
     name = models.CharField(max_length=100)
@@ -17,6 +18,7 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+
 class Product(models.Model):
     name = models.CharField(max_length=100)
     slug = models.CharField(max_length=150, verbose_name='slug', **NULLABLE)
@@ -29,7 +31,9 @@ class Product(models.Model):
     manufactured_at = models.DateTimeField(blank=True, null=True)
     is_published = models.BooleanField(default=True, verbose_name='опубликовано')
     views_count = models.IntegerField(default=0, verbose_name='количество просмотров')
-    owner = models.ForeignKey(User, verbose_name="Продавец", help_text="Укажите продавца", blank=True, null=True, on_delete=models.CASCADE)
+    owner = models.ForeignKey(User, verbose_name="Продавец", help_text="Укажите продавца", blank=True, null=True,
+                              on_delete=models.CASCADE)
+
     class Meta:
         verbose_name = 'Product'
         verbose_name_plural = 'Products'
@@ -43,6 +47,7 @@ class Product(models.Model):
     def __str__(self):
         return self.name
 
+
 class Blog(models.Model):
     title = models.CharField(max_length=150, verbose_name='заголовок')
     slug = models.CharField(max_length=150, verbose_name='slug', **NULLABLE)
@@ -52,10 +57,10 @@ class Blog(models.Model):
     is_published = models.BooleanField(default=True, verbose_name='опубликовано')
     views_count = models.IntegerField(default=0, verbose_name='количество просмотров')
 
-
     class Meta:
         verbose_name = 'блог'
         verbose_name_plural = 'блоги'
+
 
 class Version(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='version')

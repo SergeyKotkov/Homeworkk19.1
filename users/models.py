@@ -1,14 +1,16 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-class User(AbstractUser):
 
+class User(AbstractUser):
     username = None
     email = models.EmailField(unique=True, verbose_name='Email')
 
-    phone = models.CharField(max_length=35, verbose_name='Телефон', blank=True, null=True, help_text='Введите номер телефона')
+    phone = models.CharField(max_length=35, verbose_name='Телефон', blank=True, null=True,
+                             help_text='Введите номер телефона')
     country = models.CharField(max_length=50, verbose_name='Страна', blank=True, help_text='Укажите страну проживания')
-    avatar = models.ImageField(upload_to="users/avatars/", verbose_name='Фото', blank=True, null=True, help_text='Загрузите Вашу фотографию')
+    avatar = models.ImageField(upload_to="users/avatars/", verbose_name='Фото', blank=True, null=True,
+                               help_text='Загрузите Вашу фотографию')
 
     token = models.CharField(max_length=100, verbose_name="Token", blank=True, null=True)
 
@@ -21,4 +23,3 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.email
-

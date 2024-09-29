@@ -4,6 +4,7 @@ from Catalog.models import Product, Version
 
 from django import forms
 
+
 class StyleFormMixin:
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -12,6 +13,7 @@ class StyleFormMixin:
                 field.widget.attrs['class'] = 'form-check-input'
             else:
                 field.widget.attrs['class'] = 'form-control'
+
 
 class ProductModeratorForm(StyleFormMixin, ModelForm):
     class Meta:
@@ -23,8 +25,6 @@ class ProductForm(StyleFormMixin, ModelForm):
     class Meta:
         model = Product
         exclude = ("views_count", "manufactured_at")
-
-
 
     def clean_name(self):
         name = self.cleaned_data.get('name')
@@ -43,6 +43,7 @@ class ProductForm(StyleFormMixin, ModelForm):
             if word in description.lower():
                 raise forms.ValidationError(f"Запрещено использовать слово '{word}' в описании продукта.")
         return description
+
 
 class VersionForm(StyleFormMixin, ModelForm):
     class Meta:

@@ -1,33 +1,14 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.forms import inlineformset_factory
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
 from django.views.generic import ListView, DetailView, TemplateView, CreateView, UpdateView, DeleteView
 from pytils.translit import slugify
-
 from Catalog.forms import ProductForm, VersionForm, ProductModeratorForm
-from Catalog.models import Category, Product, Blog, Version
+from Catalog.models import Product, Blog, Version
+from Catalog.services import get_product_from_cache
 
-
-# def home(request):
-#   return render(request, 'home.html')
-
-# def contacts(request):
-#    return render(request, 'contacts.html')
-
-# def category(request):
-#    return render(request, 'Category.html')
-
-# def Catalog(request):
-#    categories = Product.objects.all()
-#    return render(request, 'product_list.html', {'categories': categories})
-
-# def Category_detail(request, pk):
-#        context = {
-#            'Products': Product.objects.get(pk=pk)
-#        }
-#        return render(request, 'product_detail.html', context)
 
 class CategoryDetailViews(DetailView):
     model = Product
@@ -41,6 +22,11 @@ class ProductListView(ListView, LoginRequiredMixin):
         queryset = queryset.filter(is_published=True)
         return queryset
 
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        context_data['object_list'] = get_product_from_cache()
+        return context_data
+
 
 class ProductDetailView(DetailView, LoginRequiredMixin):
     model = Product
@@ -52,6 +38,7 @@ class ProductDetailView(DetailView, LoginRequiredMixin):
         self.object.views_count += 1
         self.object.save()
         return self.object
+
 
 class ProductCreateView(CreateView, LoginRequiredMixin):
     model = Product
@@ -65,6 +52,7 @@ class ProductCreateView(CreateView, LoginRequiredMixin):
             new_mat.save()
 
         return super().form_valid(form)
+
 
 class ProductUpdateView(UpdateView, LoginRequiredMixin):
     model = Product
@@ -105,9 +93,11 @@ class ProductUpdateView(UpdateView, LoginRequiredMixin):
         user = self.request.user
         if user == self.object.owner:
             return ProductForm
-        if user.has_perm("Catalog.can_edit_is_published") and user.has_perm("Catalog.can_edit_description") and user.has_perm("Catalog.can_edit_category") and user:
+        if user.has_perm("Catalog.can_edit_is_published") and user.has_perm(
+                "Catalog.can_edit_description") and user.has_perm("Catalog.can_edit_category") and user:
             return ProductModeratorForm
         raise PermissionDenied
+
 
 class ProductDeleteView(DeleteView, LoginRequiredMixin):
     model = Product
@@ -124,6 +114,7 @@ def tuggle_Product(reqest, pk):
     product_name.save()
 
     return redirect(reverse('Catalog:product_list'))
+
 
 class HomeTemplateView(TemplateView):
     template_name = 'home.html'
@@ -180,7 +171,6 @@ class BlogUpdateView(UpdateView, LoginRequiredMixin):
 
         return super().form_valid(form)
 
-
     def get_success_url(self):
         return reverse('Catalog:blog_detail', args=[self.kwargs.get('pk')])
 
@@ -190,7 +180,7 @@ class BlogDeleteView(DeleteView, LoginRequiredMixin):
     success_url = reverse_lazy('Catalog:blog_list')
 
 
-def tuggle_Blog(reqest, pk):
+def tuggle_Blog(request, pk):
     blog_title = get_object_or_404(Blog, pk=pk)
     if blog_title.is_published:
         blog_title.is_published = False
